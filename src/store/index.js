@@ -12,11 +12,11 @@ export default new Vuex.Store({
   },
   getters: {},
   mutations: {
-    addmemo : function(state, memo) {
+    addmemo : function(state, board) {
       const id = state.board.length + 1;
-      state.board.push({ id: id, title : memo.title, memo : memo.memo, views : 0});
+      state.board.push({ id: id, title : board.title, memo : board.memo, views : 0});
     },
-    views : function(state, id){
+    addviews : function(state, id){
       state.board[id-1].views++;
     }
   },

@@ -1,49 +1,47 @@
 <template>
   <div class="home">
-
     <table>
       <tr>
         <td>번호</td>
-        <td>제목</td>
-        <td>조회수</td>
+        <td>게시글</td>
+        <td>클릭횟수(조회수)</td>
       </tr>
-      <tr v-for="board in $store.state.board" :key="board.id">
-        <td>      
-          <router-link :to="`/board/${board.id}`">
-            <span @click="addviewscommit">{{board.id}}</span>
-          </router-link>
-        </td>
-        <td>
-          <router-link :to="`/board/${board.id}`">
-            {{board.title}}
-          </router-link>
-        </td>
-        <td>          
-           {{board.views}}
-        </td>
+
+      <tr 
+      v-for="board in $store.state.board"
+      :key="board.id">
+        <td @click="addcount(board.id)">{{board.id}}</td>
+        <!-- 클릭했을때 /board/board.id 위치로 이동하기 -->
+        <!-- router-link를 사용하게되면 클릭이벤트가 사용되지않는다 -->
+        <td @click="addcount(board.id)">{{board.title}}</td>
+        <td>{{board.views}}</td>
       </tr>
+
     </table>
+
+    <!-- 값을 사용하기전에 값이 제대로 출력되는지 확인하기-->
+    <!--
+    <h3>{{$store.state.boardlist}}</h3>
+    -->
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-
 export default {
   name: 'HomeView',
   methods : {
-    addviews : function(){
-      this.$store.state.board.views++;
-    },
-    addviewscommit : function(){
-      this.$store.commit('addviews', this.views);
+    addcount(id) {
+      // store에 있는 mutations사용
+      this.$store.commit('addviews', id);
+      this.$router.push(`/board/${id}`);
     }
   }
 }
 </script>
-
 <style scoped>
 table{
   display: inline-block;
+  text-align: center;
 }
 </style>

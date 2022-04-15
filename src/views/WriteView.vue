@@ -7,25 +7,20 @@
       </textarea>
     </form>
     <br>
-    <button @click="addmemoMu">완료</button>
+    <button @click="addboard">완료</button>
   </div>
 </template>
 
 <script>
 export default {
-  data : function () {
-    return {
-      memo : '',
-      title : ''
-    }
-  },
+  data : ()=>({
+    title : '',
+    memo : ''
+  }),
   methods : {
-    addmemo : function () {
-      const id = this.$store.state.board.length+1
-      this.$store.state.board.push({id : id, title : this.title, memo : this.memo})
-    },
-    addmemoMu : function () {
-      this.$store.commit('addmemo', this.memo);
+    addboard(){
+      const board = {title : this.title, memo : this.memo}
+      this.$store.commit('addmemo',board);
       this.$router.push('/');
     }
   }
